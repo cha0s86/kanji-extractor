@@ -1,14 +1,18 @@
+#pragma execution_character_set( "utf-8" )
 #include <iostream>
+#include <windows.h>
 #include <string>
+#include <fcntl.h>
+#include <io.h>
 using namespace std;
 
-#define KANJI_MIN 19968
-#define KANJI_MAX 40879
+#define KANJI_MIN   19968
+#define KANJI_MAX   40879
 
 union pools {
     struct kanjipool {
         public:
-            std::wstring kanjipool[256];
+            std::wstring kanjipool[4096];
     };
 };
 
@@ -34,11 +38,28 @@ pools::kanjipool kanjilexer(std::wstring kanjitext) {
     return kanjipool;
 }
 
+void printkanji(pools::kanjipool kanjiobj) {
+
+    int iterator = 0;
+
+    std::wstring ntchar = L"\0";
+
+    for (iterator = 0; kanjiobj.kanjipool[iterator] != ntchar; iterator++)
+    {
+        std::wcout << kanjiobj.kanjipool[iterator];
+    }
+}
+
 int main() {
+    
+    _setmode(_fileno(stdout), _O_WTEXT); // or _O_U16TEXT, either work
+    _setmode(_fileno(stdin), _O_WTEXT);
 
     std::wstring kanjitext = L"日本語でお願いします、僕は日本人だから";
 
-    kanjilexer(kanjitext);
+    pools::kanjipool kanjiobj = kanjilexer(kanjitext);
+
+    printkanji(kanjiobj);
 
     return 0;
 }

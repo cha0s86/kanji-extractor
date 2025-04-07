@@ -46,16 +46,18 @@ void printkanji(pools::kanjipool kanjiobj) {
 
     for (iterator = 0; kanjiobj.kanjipool[iterator] != ntchar; iterator++)
     {
-        std::wcout << kanjiobj.kanjipool[iterator];
+        std::wcout << iterator+1 << ": " << kanjiobj.kanjipool[iterator] << std::endl;
     }
 }
 
 int main() {
     
-    _setmode(_fileno(stdout), _O_WTEXT); // or _O_U16TEXT, either work
+    _setmode(_fileno(stdout), _O_WTEXT);
     _setmode(_fileno(stdin), _O_WTEXT);
 
     std::wstring kanjitext = L"日本語でお願いします、僕は日本人だから";
+
+    std::wcout << L"You entered: " << kanjitext << std::endl;
 
     pools::kanjipool kanjiobj = kanjilexer(kanjitext);
 

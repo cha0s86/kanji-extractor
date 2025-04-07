@@ -30,8 +30,16 @@ pools::kanjipool kanjilexer(std::wstring kanjitext) {
         // Check for a kanji, if we get a kaji, store it in charpool.
         if (kanjitext[iterator] > KANJI_MIN && kanjitext[iterator] < KANJI_MAX)
         {
-            kanjipool.kanjipool[kanjiindex] += kanjitext[iterator];
-            kanjiindex++;
+            if (kanjitext[iterator+1] > KANJI_MIN && kanjitext[iterator+1] < KANJI_MAX) {
+                while (kanjitext[iterator] > KANJI_MIN && kanjitext[iterator] < KANJI_MAX) {
+                    kanjipool.kanjipool[kanjiindex] += kanjitext[iterator];
+                    iterator++;
+                }
+                kanjiindex++;
+            } else {
+                kanjipool.kanjipool[kanjiindex] += kanjitext[iterator];
+                kanjiindex++;
+            }
         }
     }
 
@@ -57,6 +65,7 @@ int main() {
 
     std::wcout << L"You entered: " << kanjitext << std::endl;
 
+    std::wcout << L"Extracted kanji:" << std::endl;
     pools::kanjipool kanjiobj = kanjilexer(kanjitext);
 
     printkanji(kanjiobj);

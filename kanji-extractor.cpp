@@ -42,9 +42,7 @@ void printkanji(pools::kanjipool kanjiobj) {
 
     int iterator = 0;
 
-    std::wstring ntchar = L"\0";
-
-    for (iterator = 0; kanjiobj.kanjipool[iterator] != ntchar; iterator++)
+    for (iterator = 0; kanjiobj.kanjipool[iterator] != L"\0"; iterator++)
     {
         std::wcout << iterator+1 << ": " << kanjiobj.kanjipool[iterator] << std::endl;
     }

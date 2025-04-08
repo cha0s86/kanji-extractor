@@ -61,7 +61,7 @@ int main() {
     _setmode(_fileno(stdout), _O_WTEXT);
     _setmode(_fileno(stdin), _O_WTEXT);
 
-    std::wstring kanjitext = L"日本語でお願いします、僕は日本人だから";
+    std::wstring kanjitext = L"何十回 何百回ぶつかりあって何十年 何百年 昔の光が星 自身も忘れたころに僕らに届いてる";
 
     std::wcout << L"You entered: " << kanjitext << std::endl;
 
